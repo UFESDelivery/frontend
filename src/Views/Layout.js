@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './NavBar';
 import Home from '../Components/Home';
 
-const Index = ()=>{
+const Layout = ()=>{
 
   return(
     <>
@@ -12,4 +12,4 @@ const Index = ()=>{
   );
 }
 
-export default Index;
+export default Layout;

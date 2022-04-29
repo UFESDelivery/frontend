@@ -1,11 +1,13 @@
-import './Views/Assets/App.css';
+import BaseStyles from './Views/Assets/BaseStyles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Index from './Views/Index';
+import Layout from './Views/Layout';
 
 function App() {
   return (
     <Router>
-      <Index />
+      <BaseStyles />
+      <Layout />
     </Router>
   );
 }

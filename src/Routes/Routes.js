@@ -1,13 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Index from '../Views/Index'
+import Layout from '../Views/Layoutt'
 
 const MainRoutes = ()=>{
 
   return(
     <div class="container">
       <Routes>
-        <Route path='/' element={ <Index /> } />
+        <Route path='/' element={ <Layout /> } />
       </Routes>
     </div>
     
