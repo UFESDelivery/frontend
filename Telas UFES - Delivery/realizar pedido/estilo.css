@@ -1,0 +1,93 @@
+/* Configuração padrão da página
+		-------------------------------*/
+		@font-face {
+			font-family: roboto;
+			src: url(fontes/Roboto-Regular.ttf);
+		}
+		
+		* {
+			font-family: roboto;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			margin: 0;
+			color: #7F6898;
+			height: auto;
+			overflow-x: hidden;
+		}
+
+		header{
+			background-color: #acacac;
+		}
+
+		.icons, .icons-sacola {
+			width: 20px;
+			border-radius: 50%;
+			background-color: #c7c7c7;
+			user-select: none;
+		}
+
+		.icons:hover {
+			background-color: #777777;
+		}
+
+		.icons-sacola {
+			width: 45px;
+			border-radius: 10px;
+			padding: 5px 15px;
+			background-color: #25cc25;
+		}
+
+		.icons-sacola:hover {
+			background-color: #1ca01c;
+		}
+
+		.user, .usuario {
+			color: #ffffff;
+			
+		}
+
+		.usuario {
+			background-color: #777777;
+			border-radius: 5px 0px 0px 5px;
+			font-weight: 600;
+			letter-spacing: 1px;
+		}
+
+		.user {
+			background-color: #919191;
+			border-radius: 0px 5px 5px 0px;
+		}
+
+		.data {
+			color: #979797;
+			background-color: #ececec;
+			border-radius: 5px;
+		}
+
+		.tr-desc {
+			color: #77777700;
+		}
+
+		.tabela-produtos{
+			min-height: 300px;
+		}
+
+		/* não funcionando */
+
+		.n-funcioando {
+			color: #777777;
+			font-size: 2em;
+			padding: 50px;
+		}
+
+		footer {
+			position: fixed;
+			bottom: 0;
+			font-size: 0.8em;
+			background-color: white;
+			width: 100vw;
+			text-align: center;
+		}
