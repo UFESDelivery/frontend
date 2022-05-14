@@ -50,16 +50,11 @@
             <!-- Condicionamento - se tiver a quantidade deste item definita no segundo td, exibir esse: -->
             <td><img src="imagens/plus-solid.svg" class="icons-sacola" data-toggle="modal" data-target="#adicionadocomsucesso"></td>
             <!-- Caso contrário, exibir esse: -->
-            <!-- <td><img src="imagens/plus-solid.svg" class="icons-sacola" data-toggle="modal" data-target="#naoadicionado"></td> -->
+            <!-- <td><img src="imagens/plus-solid.svg" class="icons-sacola" data-toggle="modal" data-target="#naoadicionado"></td>  -->
           </tr>
           <!-- Linha delimitante indicando o final da tabela -->
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td>
           </tr>
         </tbody>
       </table>
@@ -67,6 +62,12 @@
       <!-- <div class="n-funcioando d-flex justify-content-center flex-column text-center">
         <div class="">Lamento mas não estamos funcionando no momento.</div>
         <div class=" font-italic">Horário de funcionamento: Das 15:00 às 23:59.</div>
+      </div> -->
+
+      <!-- Exibir apenas se não tiver nenhum produto cadastrado no bd ou a quantidade de todos os produtos estiver zerada -->
+      <!-- <div class="n-funcioando d-flex justify-content-center flex-column text-center">
+        <div class="">Lamento mas não há produtos em estoque no momento.</div>
+        <div class=" font-italic">Volte mais tarde.</div>
       </div> -->
     </section>
 
@@ -172,7 +173,9 @@
                 </button>
               </div>
               <div class="modal-body">
-                Desculpe, esse item não tem em estoque.
+                Desculpe, a quantidade que você pediu deste item não tem em estoque.<br>
+                <!-- neste span ficará a quantidade de itens, deste produto pedido, em estoque -->
+                <em>Quantidade em estoque: <span>0</span></em>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Escolher outra opção</button>
