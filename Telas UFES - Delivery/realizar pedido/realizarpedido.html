@@ -191,25 +191,25 @@
           </div>
         </div>
       
-        <!-- Modal - Adicionado com sucesso (botão verde) -->
-        <div class="modal fade" id="adicionadocomsucesso" tabindex="-1" role="dialog" aria-labelledby="adicionadocomsucessoTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="adicionadocomsucessoTitle">Pedido adicionado à sacola</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Seu pedido foi adicionado na sua sacola.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+          <!-- Modal - Adicionado com sucesso (botão verde) -->
+          <div class="modal fade" id="adicionadocomsucesso" tabindex="-1" role="dialog" aria-labelledby="adicionadocomsucessoTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="adicionadocomsucessoTitle">Pedido adicionado à sacola</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Seu pedido foi adicionado na sua sacola.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
         <!-- Modal - Cadastrado com sucesso (botão cadastrar) -->
         <div class="modal fade" id="cadastradocomsucesso" tabindex="-1" role="dialog" aria-labelledby="cadastradocomsucessoTitle" aria-hidden="true">
@@ -292,18 +292,90 @@
                     Frente: <span>R$ 0,00</span> <br>
                     Descontos: <span><span>(5%) </span> R$ 4,99</span> <br>
                     <br>
-                    Valor a pagar: <h2>R$ 94,99</h2>
+                    Valor a pagar: <h2>R$ 95,00</h2>
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary col-2 m-3" data-dismiss="modal">Pagar</button>
+                <button type="button" class="btn btn-secondary col-2 m-3" data-dismiss="modal"  data-toggle="modal" data-target="#erroPagamento">Pagar</button>
               </div>
                 
             </div>
           </div>
         </div>
     
+         <!-- Modal - Resumo do pedido -->
+        <!-- <div class="modal fade" id="resumoPedido" tabindex="-1" role="dialog" aria-labelledby="resumoPedidoTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="resumoPedidoTitle">Resumo do pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  
+                  <div class="m-4 d-flex">
+                    <div class="col-1 text-center py-3">
+                      <img class="icons-pagamento" src="imagens/truck-solid.svg" />
+                    </div>
+                    <div class="col-9 float-left">
+                       <h4 class="p-0 m-0">Entrega no seu endereço</h4>
+                      <b>Fulano de Tal</b>, <b>telefone: <span>(28) 99999-9991</span></b><br>
+                      <span>Alto Universitário</span>, <span>S/N</span><br>
+                      <span>Departamento de Computação - UFES Alegre - ES</span><br>
+                      Ponto de Referência:<span> primeiro andar do prédio Central em frente ao ginásio.</span>
+                    </div>
+                  </div>
+                 
+                  <div class="m-4 d-flex">
+                    <div class="col-1 text-center">
+                      <img class="icons-pagamento" src="imagens/coins-solid.svg" />
+                    </div>
+                    <div class="col-9 float-left">
+                      <b>Você pagou R$ <span>95,00</span> com <span>Mercado Pago</span>.</b>
+                    </div>
+                  </div>
+
+                  <div class="m-4 d-flex">
+                    <div class="col-1 text-center">
+                      <img class="icons-pagamento" src="imagens/arrow-alt-circle-left-regular.svg" />
+                    </div>
+                    <div class="col-9 float-left">
+                      <a href="#" class="text-dark">
+                        <b>Você poderá cancelar o pedido antes que ele seja preparado para envio.</b>
+                      </a>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- Modal - erro ao realizar pagamento do pedido -->
+        <div class="modal fade" id="erroPagamento" tabindex="-1" role="dialog" aria-labelledby="erroPagamentoTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="erroPagamentoTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  
+                  <div class="m-2">
+                    <h3>Pagamento não foi realizado</h3>
+                    <br>
+                    <p>Houve uma falha ao processar o pagamento.</p>
+                    <p>Entre em contato com o mercado pago e/ou tente novamente mais tarde.</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
     <script src="realizarpedido.js"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
