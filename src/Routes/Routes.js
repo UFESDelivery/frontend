@@ -5,6 +5,7 @@ import OrderDetails from '../Views/OrderDetails';
 import OrderCreate from '../Views/OrderCreate';
 import OrderList from '../Views/OrderList';
 import ProductList from '../Views/ProductList';
+import CustomerForm from '../Views/CustomerForm'
 
 const MainRoutes = ()=>{
 
@@ -16,6 +17,7 @@ const MainRoutes = ()=>{
         <Route path='/pedido' element={ <OrderList /> } />
         <Route path='/pedido/novo' element={ <OrderCreate /> } />
         <Route path='/pedido/1' element={ <OrderDetails/> } />
+        <Route path='/cliente/novo' element={ <CustomerForm/>} />
       </Routes>
     </section>
     

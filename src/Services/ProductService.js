@@ -8,10 +8,12 @@ class ProductService{
   //   const response = await axios.get(this.baseUrl);
   //   return response.data.data;
   // }
+  prefixUrl = 'http://localhost:5000'
+
   async getAllProduct(){
-    const baseUrl = 'http://localhost:8080/api/produtos/buscar'
+    const baseUrl = `${this.prefixUrl}/product/get/all`;
     const response = await axios.get(baseUrl);
-    return response.data;
+    return response.data.result;
   }
   
 }

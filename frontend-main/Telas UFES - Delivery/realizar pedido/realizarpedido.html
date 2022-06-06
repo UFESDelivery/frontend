@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Realizar pedido</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="estilo.css" type="text/css">
+    <link href="/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet">
+
+    
+        
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	</head>
+	<body>
+    <!-- Header básico. Futuro: local de inserção do menu -->
+		<header class="p-3 w-100">
+      <h1 class="text-dark text-center">Realizar pedido</h1>
+    </header>
+
+    <!-- Dados primários (que aparecerão primeiro) -->
+    <div class="d-flex w-100 justify-content-between">
+      <!-- em nome do usuário vai como exemplo: João Silva. Local de inserção dinâmica -->
+      <div class=" p-3 m-3"><span class="usuario px-3 py-3">Usuário</span><span class="user px-3 py-3">Nome do usuário</span></div>
+      <!-- local de inserção dinâmica -->
+      <div class=" p-3 m-3"><span class="data px-3 py-3">Data: 22 de Abril 15:31 PM</span></div>
+    </div>
+
+    <!-- Container da tabela de produtos -->
+    <section class="container-fluid px-5 py-3 text-center tabela-produtos">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Valor unitário</th>
+            <th scope="col">Valor total do item</th>
+            <th scope="col">Adicionar a sacola</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Local de inserção da lista de produtos dinâmica (dados preenchidos até o momento apenas para visualização. Exibir apenas se o delivery estiver funcionando) -->
+          <tr>
+            <td>Vitamina de Abacaxi</td>
+            <td><span id="menos"><img src="imagens/minus-solid.svg" class="icons p-1 mr-2"></span><span id="valor">1</span><span id="mais"><img src="imagens/plus-solid.svg" class="icons p-1 ml-2"></span></td>
+            <td>Vitaminas</td>
+            <td>7,00 R$</td>
+            <td>7,00 R$</td>
+            <!-- Condicionamento - se tiver a quantidade deste item definita no segundo td, exibir esse: -->
+            <td><img src="imagens/plus-solid.svg" class="icons-sacola" data-toggle="modal" data-target="#adicionadocomsucesso"></td>
+            <!-- Caso contrário, exibir esse: -->
+            <!-- <td><img src="imagens/plus-solid.svg" class="icons-sacola" data-toggle="modal" data-target="#naoadicionado"></td>  -->
+          </tr>
+          <!-- Linha delimitante indicando o final da tabela -->
+          <tr>
+            <td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Exibir apenas se o delivery não estiver funcionando -->
+      <!-- <div class="n-funcioando d-flex justify-content-center flex-column text-center">
+        <div class="">Lamento mas não estamos funcionando no momento.</div>
+        <div class=" font-italic">Horário de funcionamento: Das 15:00 às 23:59.</div>
+      </div> -->
+
+      <!-- Exibir apenas se não tiver nenhum produto cadastrado no bd ou a quantidade de todos os produtos estiver zerada -->
+      <!-- <div class="n-funcioando d-flex justify-content-center flex-column text-center">
+        <div class="">Lamento mas não há produtos em estoque no momento.</div>
+        <div class=" font-italic">Volte mais tarde.</div>
+      </div> -->
+    </section>
+
+    <!-- Container com tabela de desconto, botão de cadastro de endereço e botão de pagamento -->
+    <section class="col-12 d-flex align-items-center">
+
+      <div class="col-6 pl-5 text-center">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Desconto</th>
+              <th scope="col">%</th>
+              <th scope="col">Valor Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Local de inserção dinâmica de descontos (dados inseridos até o momento meramente ilustrativos) -->
+            <tr>
+              <td>Compra acima de 20,00 R$</td>
+              <td>5%</td>
+              <td>00,00R$</td>
+            </tr>
+            <!-- Linha delimitante indicando o final da tabela -->
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- div com botões -->
+      <div class="col-4 mx-auto d-flex justify-content-around">
+        <!-- botão que ativa o modal cadastrar endereço -->
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalEndereco">Cadastrar endereço</button>
+        <button type="button" class="btn btn-dark">Pagar</button>
+      </div>
+
+    </section>
+        
+        <!-- Modal - Cadastrar endereço -->
+        <div class="modal fade" id="modalEndereco" tabindex="-1" role="dialog" aria-labelledby="modalEnderecoTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalEnderecoTitle">Cadastrar endereço</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Endereço</label>
+                      <input type="text" class="form-control" id="endereco" placeholder="Rua 1, 123">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputAddress2">Complemento</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Ao lado da Praça 1">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputCidade">cidade</label>
+                      <input type="text" class="form-control" id="inputCidade" placeholder="Alegre">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEstado">Estado</label>
+                      <select id="inputEstado" class="form-control">
+                        <option selected>Estado...</option>
+                        <option>ES</option>
+                        <option>MG</option>
+                        <option>RJ</option>
+                        <option>SP</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputCep">CEP</label>
+                      <input type="text" class="form-control" id="inputCep" placeholder="29500-000">
+                    </div>
+                  </div>
+                  <p class="text-danger">Você esqueceu de preencher campos obrigatórios.</p>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+        
+        <!-- Modal - Erro ao adicionar (botão verde) -->
+        <div class="modal fade" id="naoadicionado" tabindex="-1" role="dialog" aria-labelledby="naoadicionadoTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="naoadicionadoTitle">Falha ao adicionar à sacola</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Desculpe, a quantidade que você pediu deste item não tem em estoque.<br>
+                <!-- neste span ficará a quantidade de itens, deste produto pedido, em estoque -->
+                <em>Quantidade em estoque: <span>0</span></em>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Escolher outra opção</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          
+        <!-- Modal - Adicionado com sucesso (botão verde) -->
+        <div class="modal fade" id="adicionadocomsucesso" tabindex="-1" role="dialog" aria-labelledby="adicionadocomsucessoTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="adicionadocomsucessoTitle">Pedido adicionado à sacola</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Seu pedido foi adicionado na sua sacola.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <script src="realizarpedido.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	</body>
+</html>
