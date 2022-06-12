@@ -1,25 +1,23 @@
-import React, { useState, useEffect, createContext, useReducer } from 'react';
+import React, { useState, useEffect, createContext, useReducer, useContext } from 'react';
 import CustomerService from '../Services/CustomerService';
 import ProductService from '../Services/ProductService';
 import OrderService from '../Services/OrderService';
+import AtomQuantity from '../Components/Atoms/Atom-quantity';
 import Barcode from '../Components/Assets/barcode.svg'
 import { AiOutlinePlus, AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai'
+import AtomProduct from '../Components/Atoms/Atom-product';
+import { CartContext } from '../Components/Context/CartContext';
 
 const OrderCreate = () => {
 
+  const {beijinho} = useContext(CartContext)
+  console.log(`Beijinho da view ${beijinho}`)
+
   const [loading, setLoading] = useState(true);
-  const [haveOrder, setHaveOrder] = useState(false);
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [customer, setCustomer] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [orderCart, setOrderCart] = useState([]);
-  const [data, setData] = useState({
-    cd_pedido: "",
-    cd_produto: "",
-    qt_itens: 0
-  });
-  const Context = createContext();
-  const CartContext = createContext(Context);
+
   const customerService = new CustomerService();
   const productService = new ProductService();
   const orderService = new OrderService();
@@ -31,83 +29,81 @@ const OrderCreate = () => {
       setLoading(!loading);
   }
 
-  const createReducer = (product)=>{
-    return (state, action)=>{
-      const productList = product;
+  // const [data, setData] = useState({
+  //   cd_pedido: "1",
+  //   cd_produto: "2",
+  //   qt_itens: "1"
+  // });
 
-      switch(action.type){
-        case "AddToCart":
-          if(productList.find(product => product.cd_produto === action.playload.cd_produto)){
-            let newState1 = [...state];
+  // const createReducer = (product)=>{
+  //   return (state, action)=>{
+  //     const productList = product;
+
+  //     switch(action.type){
+  //       case "AddToCart":
+  //         if(productList.find(product => product.cd_produto === action.playload.cd_produto)){
+  //           let newState1 = [...state];
             
-            if(newState1.find(item=> item.product.cd_produto === action.playload.cd_produto)){
-              console.log(`Foi incrementado um item em ${action.playload.cd_produto}`);
-              ++newState1.find(item=> item.product.cd_produto === action.playload.cd_produto)
-                .quantity;
-            }
-            else{
-              console.log(`Enviado para o carrinho o produto ${action.playload.cd_produto}`);
-              newState1.push({
-                cd_pedido: orders.cd_pedido,
-                cd_produto: productList.find(
-                  product => product.cd_produto === action.playload.cd_produto
-                ),
-                qt_itens: 1
-              });
-            }
-            return newState1;
-          }
-          return state;
-        case "SubtractFromCart":
-          let newState2 = [...state];
+  //           if(newState1.find(item=> item.product.cd_produto === action.playload.cd_produto)){
+  //             console.log(`Foi incrementado um item em ${action.playload.cd_produto}`);
+  //             ++newState1.find(item=> item.product.cd_produto === action.playload.cd_produto)
+  //               .quantity;
+  //           }
+  //           else{
+  //             console.log(`Enviado para o carrinho o produto ${action.playload.cd_produto}`);
+  //             newState1.push({
+  //               cd_pedido: orders.cd_pedido,
+  //               cd_produto: productList.find(
+  //                 product => product.cd_produto === action.playload.cd_produto
+  //               ),
+  //               qt_itens: 1
+  //             });
+  //           }
+  //           return newState1;
+  //         }
+  //         return state;
+  //       case "SubtractFromCart":
+  //         let newState2 = [...state];
 
-          if(newState2.find(item => item.product.cd_pedido === action.playload.cd_produto)){
-            const item = state.find(
-              item => item.product.cd_pedido === action.playload.cd_pedido
-            );
+  //         if(newState2.find(item => item.product.cd_pedido === action.playload.cd_produto)){
+  //           const item = state.find(
+  //             item => item.product.cd_pedido === action.playload.cd_pedido
+  //           );
             
-            if(item.quantity < 2){
-              console.log(`Foi removido do carrinho o item ${action.playload.cd_produto}`);
-              newState2 = newState2.filter(
-                cartItem => cartItem.product.cd_pedido != item.product.cd_pedido
-              );
-            }
-            else{
-              console.log(`Decrementado do carrinho o produto ${action.playload.cd_produto}`);
-              ++newState2.find(item=> item.product.cd_produto === action.playload.cd_produto)
-                .quantity;
-            }
-            return newState2;
-          }
-      }
-    }
-  }
-
-  const Provider = props =>{
-    const [state, dispatch] = useReducer(createReducer(product),[]);
-    return(
-      <Context.Provider value={ { state, dispatch } }>
-        { props.children }
-      </Context.Provider>
-    )
-  }
+  //           if(item.quantity < 2){
+  //             console.log(`Foi removido do carrinho o item ${action.playload.cd_produto}`);
+  //             newState2 = newState2.filter(
+  //               cartItem => cartItem.product.cd_pedido != item.product.cd_pedido
+  //             );
+  //           }
+  //           else{
+  //             console.log(`Decrementado do carrinho o produto ${action.playload.cd_produto}`);
+  //             ++newState2.find(item=> item.product.cd_produto === action.playload.cd_produto)
+  //               .quantity;
+  //           }
+  //           return newState2;
+  //         }
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     async function loadCustomer() {
       setCustomer(await customerService.getCustomer(2));
       toggleLoading();
     }
-    async function loadProduct() {
-      setProduct(await productService.getAllProduct());
+    async function loadProducts() {
+      setProducts(await productService.getAllProduct());
+      console.log(products)
       toggleLoading();
     }
     async function loadAllOrders() {
       setOrders(await orderService.getAllOrders());
-      // checkOrder();
       toggleLoading();
     }
+
     loadCustomer();
-    loadProduct();
+    loadProducts();
     loadAllOrders();
 
   }, []);
@@ -118,9 +114,6 @@ const OrderCreate = () => {
         <p>Carregando...</p>
         :
         <div>
-          {orders && haveOrder &&
-            <h1>Novo Pedido</h1>
-          }
           <div className='d-flex justify-content-between'>
             {/* <!-- em nome do usuário vai como exemplo: João Silva. Local de inserção dinâmica --> */}
             <div className=' p-3 m-3'>
@@ -145,35 +138,8 @@ const OrderCreate = () => {
                 </tr>
               </thead>
               <tbody>
-                {product.map((product) =>
-                  <tr key={product.cd_produto}>
-                    <td>{product.no_produto}</td>
-                    <td className='d-flex'>
-                      <button
-                        onClick={(e)=>{
-                          e.preventDefault();
-                          
-                        }
-                      }
-                      >
-                        <span id='menos'><AiOutlineMinusCircle size={22} /></span>
-                      </button>
-                      <span id='valor'><div className='p-2'>0</div></span>
-                      <button
-                        onClick={ (e)=>{
-                          e.preventDefault();
-                          CartContext.dispatch({ type: "AddToCart", playload: { cd_pedido: product.cd_pedido } })
-                        }
-                      }
-                      >
-                        <span id='mais'><AiOutlinePlusCircle size={22} /></span>
-                      </button>
-                    </td>
-                    <td>{`${product.vl_unitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}</td>
-                    <td>0,00</td>
-                    {/* <!-- Condicionamento - se tiver a quantidade deste item definita no segundo td, exibir esse: --> */}
-                    <td><AiOutlinePlusCircle size={22} /></td>
-                  </tr>
+                {products.map((item) =>
+                  <AtomProduct product = { item } />
                 )}
               </tbody>
             </table>

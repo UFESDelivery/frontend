@@ -6,7 +6,7 @@ import Routes from '../Routes/Routes';
 const Layout = () => {
 
   return (
-    <section>
+    <div>
       <NavBar className='nav' />
       <main className='container'>
         <div className='card-body'>
@@ -18,7 +18,7 @@ const Layout = () => {
         </div>
       </main>
       <Footer />
-    </section>
+    </div>
   );
 }
 

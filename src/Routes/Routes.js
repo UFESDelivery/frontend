@@ -10,7 +10,7 @@ import CustomerForm from '../Views/CustomerForm'
 const MainRoutes = ()=>{
 
   return(
-    <section>
+    <div>
       <Routes>
         <Route path='/' element={ <Home /> } />
         <Route path='/produtos' element={ <ProductList /> } />
@@ -19,7 +19,7 @@ const MainRoutes = ()=>{
         <Route path='/pedido/1' element={ <OrderDetails/> } />
         <Route path='/cliente/novo' element={ <CustomerForm/>} />
       </Routes>
-    </section>
+    </div>
     
   )
 }
