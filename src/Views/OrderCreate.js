@@ -1,17 +1,11 @@
-import React, { useState, useEffect, createContext, useReducer, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomerService from '../Services/CustomerService';
 import ProductService from '../Services/ProductService';
 import OrderService from '../Services/OrderService';
-import AtomQuantity from '../Components/Atoms/Atom-quantity';
-import Barcode from '../Components/Assets/barcode.svg'
-import { AiOutlinePlus, AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai'
 import AtomProduct from '../Components/Atoms/Atom-product';
-import { CartContext } from '../Components/Context/CartContext';
+
 
 const OrderCreate = () => {
-
-  const {beijinho} = useContext(CartContext)
-  console.log(`Beijinho da view ${beijinho}`)
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -28,12 +22,6 @@ const OrderCreate = () => {
     else
       setLoading(!loading);
   }
-
-  // const [data, setData] = useState({
-  //   cd_pedido: "1",
-  //   cd_produto: "2",
-  //   qt_itens: "1"
-  // });
 
   // const createReducer = (product)=>{
   //   return (state, action)=>{

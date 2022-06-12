@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
 
   const removeToCart = (index)=>{
     const filteredCart = cart.filter(
-      (cartItem)=> cart.indexOf(cartItem) !== clickedItemIndex
+      (cartItem)=> cart.indexOf(cartItem) !== index
     );
     setCart(filteredCart);
   }

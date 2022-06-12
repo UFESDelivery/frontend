@@ -18,6 +18,7 @@ const AtomQuantity = (props)=>{
     <div className='d-flex'>
       <button
         onClick={decrement}
+        className=''
       >
         -
       </button>
