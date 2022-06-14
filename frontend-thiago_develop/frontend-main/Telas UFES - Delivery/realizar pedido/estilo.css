@@ -22,18 +22,6 @@
 			background-color: #acacac;
 		}
 
-		.link-menu {
-			color: black;
-			padding: 5px 20px;
-			border-radius: 15px;
-		}
-
-		.link-menu:hover, .active {
-			background-color: #777777;
-			color: #ffffff;
-			text-decoration: none;
-		}
-
 		.icons, .icons-sacola {
 			width: 20px;
 			border-radius: 50%;
@@ -54,10 +42,6 @@
 
 		.icons-sacola:hover {
 			background-color: #1ca01c;
-		}
-
-		.icons-pagamento {
-			width: 1em;
 		}
 
 		.user, .usuario {
@@ -99,6 +83,11 @@
 			padding: 50px;
 		}
 
-		.text-end{
-			text-align: end;
+		footer {
+			position: fixed;
+			bottom: 0;
+			font-size: 0.8em;
+			background-color: white;
+			width: 100vw;
+			text-align: center;
 		}

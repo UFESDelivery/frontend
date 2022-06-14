@@ -1,0 +1,147 @@
+/* Configuração padrão da página
+-------------------------------*/
+@font-face {
+	font-family: roboto;
+	src: url(./fontes/Roboto-Regular.ttf);
+}
+
+* {
+	font-family: roboto;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	color: #7F6898;
+	height: auto;
+	overflow-x: hidden;
+}
+
+header{
+	background-color: #acacac;
+}
+
+.navbar.navbar.navbar {
+	height: 20vh;
+}
+
+.nav-link.nav-link {
+	text-align: center;
+	width: 200px;
+}
+
+.icons.icons.icons, .icons-sacola {
+	height: 30px;
+	padding-left: 2px;
+	text-align: center;
+	border-radius: 50%;
+	background-color: #c7c7c7;
+	user-select: none;
+}
+
+.icons.icons.icons:hover {
+	background-color: #777777;
+}
+
+.icons.icons.icons:focus, .icons.icons.icons:active {
+	box-shadow: none;
+}
+
+.icon-menos.icon-menos.icon-menos {
+	padding: 0 10px;
+}
+
+.icons-sacola {
+	width: 50px;
+	border-radius: 10px;
+	padding: 5px 15px;
+	background-color: #25cc25;
+}
+
+.icons-sacola:hover {
+	background-color: #1ca01c;
+}
+
+.user, .usuario {
+	color: #ffffff;
+	
+}
+
+th {
+	color: rgb(87, 87, 87);
+	border-color: #777777; 
+}
+
+.usuario {
+	background-color: #777777;
+	border-radius: 5px 0px 0px 5px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+.user {
+	background-color: #919191;
+	border-radius: 0px 5px 5px 0px;
+}
+
+.data {
+	color: #979797;
+	background-color: #ececec;
+	border-radius: 5px;
+}
+
+.tr-desc {
+	color: #97969600;
+}
+
+.tabela-produtos.tabela-produtos {
+	width: 100%;
+	height: 63vh;
+	position: fixed;
+	overflow-y: scroll;
+}
+
+.tabela-desconto.tabela-desconto {
+	padding: 0 100px;
+}
+
+.usuario-data.usuario-data.usuario-data {
+	position: fixed;
+	top: 7vh;
+	width: 100%;
+}
+
+.desconto-endereco-pagamento {
+	position: fixed;
+	bottom: 0;
+	background-color: white;
+	height: 15vh;
+}
+
+/* não funcionando */
+
+.n-funcioando {
+	color: #777777;
+	font-size: 2em;
+	padding: 50px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	font-size: 0.8em;
+	background-color: white;
+	width: 100vw;
+	text-align: center;
+}
+
+.scrollspySite{
+  position: relative;
+  overflow: auto;
+  height: 75vh;
+}
+
+.product-card{
+  width: 18rem;
+}
