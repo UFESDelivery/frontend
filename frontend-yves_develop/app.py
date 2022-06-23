@@ -1,7 +1,10 @@
-from flask import Flask
+
+from flask import Flask # pip install flask
 from flask import request
 
-from flask_cors import CORS
+from flask_cors import CORS # pip install cors
+
+#pip3 install mysql-connector-python
 
 import os
 

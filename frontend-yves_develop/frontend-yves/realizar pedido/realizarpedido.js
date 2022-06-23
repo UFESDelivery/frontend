@@ -1,27 +1,28 @@
-$(document).ready(function(){
-
-    function usuarioNome(){
-
-        let jsonProdutos = fazerGet("http://127.0.0.1:5000/user/get/client/" + 2)
-        let arrayCliente = trataObjeto(jsonProdutos)
+$(document).ready(function(){    
+    
+    function fazerReq(url, tipo, conteudo){
+        let request = new XMLHttpRequest()
+        if(tipo == 1){
+            request.open("get", url, false)
+            request.send()
+            if(request.status == 200){
+                return request.responseText;
+            }else {
+                return -1;
+            }
             
-        let jsonPedido = arrayCliente[1].cd_usuario
-            
-        let req = new XMLHttpRequest();
-            
-        req.open('GET', 'http://127.0.0.1:5000/user/get/client/' + jsonPedido, true);
-            
-        req.setRequestHeader("Content-Type", "text/html");
-        req.send();
-            
-        req.onreadystatechange = function(){
-            if (req.readyState == 4 && req.status == 200) {
-                document.getElementById("nomeUsuario").innerHTML = JSON.parse(req.responseText).result.no_usuario;
+        }else if(tipo == 2){
+            request.open("post", url, true)
+            request.setRequestHeader("Content-type", "application/json");
+            request.send(JSON.stringify(conteudo));
+            if(request.status == 200){
+                return 1;
+            }else {
+                return request.responseText;
             }
         }
-        return arrayCliente[1].cd_usuario;
     }
-
+ 
     function trataObjeto(jsonProdutos){
         let arrayProdutos = JSON.parse(jsonProdutos) // transformando em objeto
         let array = Object.keys(arrayProdutos).map(function(key) { // transforma o objeto em array
@@ -30,14 +31,42 @@ $(document).ready(function(){
         return array;
     }
 
-    function fazerGet(url){
-        let request = new XMLHttpRequest()
-        request.open("get", url, false)
-        request.send()
-        return request.responseText;
+
+    function usuarioNome(){
+
+        let jsonProdutos = fazerReq("http://127.0.0.1:5000/user/get/client/" + 3, 1)
+        let arrayCliente = trataObjeto(jsonProdutos)
+        
+        let jsonPedido = arrayCliente[1].no_usuario
+
+        document.getElementById("nomeUsuario").innerHTML = jsonPedido;
+
+        return arrayCliente[1].cd_usuario;
     }
 
-    if(usuarioNome() != 0 || usuarioNome() != NaN){
+    function verificaEnd(usuario){
+        // ... verifica se o usuário já possui endereço cadastrado
+
+        if(true){
+            // indisponibiliza o button "cadastrar"
+            document.getElementById("bottonCadastrarEnd").style.display = "none"
+            return true
+        }else {
+            return false
+        }
+    }verificaEnd(usuarioNome())
+
+    function usuarioTipo(){
+
+        let jsonProdutos = fazerReq("http://127.0.0.1:5000/user/get/client/" + 3, 1)
+        let arrayCliente = trataObjeto(jsonProdutos)
+            
+        let jsonPedido = arrayCliente[1].cd_tipo_usuario
+        
+        return jsonPedido;
+    }
+
+    if(usuarioTipo() == 1){
         let vlTotalCDesc, vlTotalSDesc, somaTotal = 0, qtdProdutos, descontos = {}, descontosSomados = 0;
 
         descontos = {
@@ -101,20 +130,23 @@ $(document).ready(function(){
             return h;
         }
 
+        function resgataEstado(){
+            let todosEstados = fazerReq("http://127.0.0.1:5000/state/get/ALL", 1);
+            todosEstados = trataObjeto(todosEstados)
+            todosEstados[1].forEach(element => {
+                $("#inputEstado").prepend($(document.createElement("option")).html(element.cd_uf))
+            });
+        }resgataEstado()
+
         function mostrarProdutos(){
             let tratamentoPersonalizado = false;
 
-            let request = new XMLHttpRequest()
-            request.open("get", "http://127.0.0.1:5000/product/get/all", false)
-            request.send()
+            let jsonProdutos = fazerReq("http://127.0.0.1:5000/product/get/all", 1)
 
             let verificaHorarioFunc = dataEHora()
             let hora = verificaHorarioFunc.slice(2, 4)
             let dia = verificaHorarioFunc.slice(0, 2)
-            if(request.readyState != 4){
-
-            }else if (request.readyState == 4 && request.status == 200) { // && trataObjeto(request.responseText)[1].length != 0 && parseInt(dia) != 1 && (parseInt(hora) >= 15 && parseInt(hora) != 0)
-                let jsonProdutos = request.responseText
+            if (jsonProdutos != -1 || parseInt(dia) != 1 || (parseInt(hora) > 15)) { // && trataObjeto(request.responseText)[1].length != 0 && parseInt(dia) != 1 && (parseInt(hora) >= 15 && parseInt(hora) != 0)
                 $(document.getElementsByClassName("container-bottom")).addClass("d-flex");
                 array = trataObjeto(jsonProdutos)
                 qtdProdutos = array[1].length
@@ -171,19 +203,20 @@ $(document).ready(function(){
                     // document.getElementById("mais"+i).addEventListener("click", aumentarQtdDoPedido())
 
                 } 
-            }else if(parseInt(dia) == 1 || (parseInt(hora) < 15)){
+            }else if(jsonProdutos != -1 || parseInt(dia) == 1 || (parseInt(hora) < 15)){
                 $(document.getElementById("nFunHorarioEDia")).css("display", "block");
-            }else if(request.readyState == 4 && request.status == 200 && trataObjeto(request.responseText)[1].length != 0){
+            }else if(trataObjeto(jsonProdutos)[1].length != 0){
                 $(document.getElementById("qtdZerada")).css("display", "block");
             }else if(tratamentoPersonalizado){
                 $(document.getElementById("nFunPersonalizado")).css("display", "block");
             }else {
-                if(request.readyState == 4 && request.status != 200){
+                if(jsonProdutos == -1){
                     $(document.getElementById("erroAoCarregarProdutos")).css("display", "block");
                 }else {
                     $(document.getElementById("carregandoProdutos")).css("display", "block");
                 }
             }
+
         }mostrarProdutos()
 
         for(let i = 0; i < qtdProdutos; i++){ // como não estava funcionando a criação de actions dentro da função mostrar produtos, criei por fora
@@ -219,11 +252,9 @@ $(document).ready(function(){
 
         function getQtdItens(i){ // action do button "Adicionar" que recupera a quantidade de itens do item clicado
             
-            let request = new XMLHttpRequest()
-            request.open("get","http://127.0.0.1:5000/product/get/"+ (i+1), false)
-            request.send()
+            let jsonProdutos = fazerReq("http://127.0.0.1:5000/product/get/"+ (i+1), 1)
 
-            let array = trataObjeto(request.responseText) // transformando o objeto em array
+            let array = trataObjeto(jsonProdutos) // transformando o objeto em array
             
             // buscando a quantidade do produto dentro do array e comparando com o selecionado
             if(parseInt(document.getElementById("valor" + i).innerHTML)  <= array[1].qt_estoque){
@@ -299,6 +330,21 @@ $(document).ready(function(){
             return somaTotal;
         }
 
+        $(document.getElementById("buttonPagar")).on("click", buttonPagar);
+
+        function buttonPagar(){
+            let temItemSacola = document.getElementById("totalAPagar").innerHTML
+
+            if(temItemSacola != "" && verificaEnd()){
+                let pagar = document.getElementById("buttonPagar");
+                $(pagar).attr("data-toggle", "modal")
+                $(pagar).attr("data-target", "#fazerPagamento")
+                document.getElementById("requisitoPagar").innerHTML = ""
+            }else {
+                document.getElementById("requisitoPagar").innerHTML = "É necessário ter algum item na sacola e endereço cadastrado para acessar esta janela."
+            }
+        }
+
         function valorTotalAPagar(){
             
             if(descontos.qtd_usos < descontos.qtd_max_usos && vlTotalSDesc >= 20){
@@ -311,56 +357,77 @@ $(document).ready(function(){
             }
             
         }
+  
+        $(document.getElementById("buttonEndereco")).on("click", enviaEndereco);
+        
+        function enviaEndereco(){
+            let endereco = document.getElementById("endereco").value;
+            let complemento = document.getElementById("complemento").value;
+            let bairro = document.getElementById("bairro").value;
+            let cidade = document.getElementById("inputCidade").value;
+            let estado = document.getElementById("inputEstado").value;
+            let cep = document.getElementById("inputCep").value;
+            let numero = endereco.replace(/[^0-9]/g,'');
+
+            if(endereco == "" || complemento == "" || cidade == "" || estado == "estado..." || cep == "") {
+                document.getElementById("camposObrigatorios").innerHTML = "Você esqueceu de preencher campos obrigatórios."
+            
+            }else {
+                let jsonEndereco = {
+                    "cd_cidade": 1,
+                    "no_logradouro": endereco,
+                    "no_bairro": bairro,
+                    "ds_numero": parseInt(numero),
+                    "nu_cep": parseInt(cep),
+                    "ds_complemento": complemento
+                }
+
+                let retornoPost = fazerReq("http://127.0.0.1:5000/address/new", 2, jsonEndereco)
+                
+                if (retornoPost == 1) {
+                    let modalSucesso = document.getElementById("buttonEndereco");
+                    $(modalSucesso).attr("data-toggle", "modal")
+                    $(modalSucesso).attr("data-target", "#cadastradocomsucesso")
+                    $(modalSucesso).attr("data-dismiss", "modal")
+                    $(modalSucesso).attr("aria-label", "Close")
+
+                    document.getElementById("bottonCadastrarEnd").style.display = "none"
+                    let pagar = document.getElementById("buttonPagar");
+                    $(pagar).attr("data-toggle", "modal")
+                    $(pagar).attr("data-target", "#fazerPagamento")
+                }else {
+                    console.log(retornoPost)
+                }
+            }
+        }
 
         $(document.getElementById("encomendarPedido")).on("click", encomendarPedido);
-        
+      
         function encomendarPedido(){
             let pagamentoConcluido = true;
             if(pagamentoConcluido){
                 $(document.getElementById("encomendarPedido")).attr("data-target", "#resumoPedido")
                 
-                let jsonProdutos = fazerGet("http://127.0.0.1:5000/user/get/client/" + 2)
+                let jsonProdutos = fazerReq("http://127.0.0.1:5000/user/get/client/" + 2, 1)
                 let arrayCliente = trataObjeto(jsonProdutos)
-                
-                // let jsonPedido = {
-                //     "cd_usuario": arrayCliente[1].cd_usuario
-                // }; 
 
-                let jsonPedido = JSON.stringify('{"cd_usuario":"'+arrayCliente[1].cd_usuario+'"}')
-                console.log(typeof(jsonPedido))
-
-                var req = new XMLHttpRequest();
+                let jsonPedido = {"cd_usuario": arrayCliente[1].cd_usuario}
+               
+                let retornoPost  = fazerReq("http://34.125.171.237:5000/order/new", 2, jsonPedido)
                 
-                req.open('POST', 'http://127.0.0.1:5000/order/new', true);
-                
-                req.send(jsonPedido);
-                
-                req.onreadystatechange = function(){
-                    if (req.readyState == 4 && req.status == 200) {
-                        console.log(req.responseText)
-                    }
-                    console.log(req.responseText)
+                if (retornoPost == 1) {
+                    let modalSucesso = document.getElementById("encomendarPedido");
+                    $(modalSucesso).attr("data-dismiss", "modal")
+                    $(modalSucesso).attr("data-toggle", "modal")
+                    $(modalSucesso).attr("data-target", "#resumoPedido")
+                }else{
+                    console.log(retornoPost)
                 }
-                
-                // fetch("http://127.0.0.1:5000/order/new", {
-                //     method: "POST",
-                //     body: JSON.stringify({
-                //         "cd_usuario": arrayCliente[1].cd_usuario
-                //     }),
-                // })
-                // .then((response) => response)
-                
-                // .then((jsonPedido) => {
-                //     console.log("Success:", jsonPedido);
-                // })
-
-                // .catch((error) => {
-                //     console.error("Error:", error);
-                // });
-                
             }else {
                 $(document.getElementById("encomendarPedido")).attr("data-target", "#erroPagamento")
             }  
         }
+    }else {
+        location.replace("../consultar pedido/consultarpedido.html")
     }
 });

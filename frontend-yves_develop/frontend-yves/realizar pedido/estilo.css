@@ -136,6 +136,12 @@
 			display: none;
 		}
 
+		#requisitoPagar {
+			text-align: center;
+			top: 6vh;
+			right: 1vw;
+		}
+
 		.text-end{
 			text-align: end;
 		}

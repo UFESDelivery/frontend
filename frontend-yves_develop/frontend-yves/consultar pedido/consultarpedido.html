@@ -65,7 +65,7 @@
         </div>
 
         <!-- Janela de detalhes do pedido (Modelo) -->
-        <!-- <div class="janela-detalhes">
+        <div class="janela-detalhes">
           <div class="p-2 col-12 d-flex justify-content-between"><div><b>Pedido:</b> 00001</div><div><b>Atendente: </b>José Marcos</div><div>22/03/22 às 20:02 PM</div></div>
           <div class="p-2 col-12"><b>Cliente:</b> João da Silva</div>
           <div class="p-2 col-12"><b>Endereço de entrega:</b> <div class="p-2"> Alto Universitário S/N <br> Departamento de computação UFES - Alegre. <br> Ponto de referência: Segundo andar do prédio central.</div></div>
@@ -91,24 +91,31 @@
                   <tr><td></td><td></td><td></td><td></td></tr>
                 </tbody>
               </table>
-              <table class="table col-6 text-center">
-                <thead>
-                  <tr>
-                    <th scope="col">Desconto</th>
-                    <th scope="col">Total Pago</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>10%</td>
-                    <td>25,20 R$</td>
-                  </tr>
-                  <tr><td></td><td></td></tr>
-                </tbody>
-              </table>
+              <div class="col-12 d-flex justify-content-between">
+                <table class="table col-6 text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">Desconto</th>
+                      <th scope="col">Total Pago</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>10%</td>
+                      <td>25,20 R$</td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                  </tbody>
+                </table>
+                <div class="col-4 mx-auto d-flex justify-content-around align-items-center">
+                  <button id="prontoEntrega" type="button" class="btn btn-secondary mr-5" data-toggle="modal" data-target="#modalEndereco">Pronto</button>
+                  <button id="cancelarPedidoAtendente" type="button" class="btn btn-dark">Cancelar pedido</button>
+                </div>
+              </div>
+              
             </div>
           </div>
-        </div>  -->
+        </div> 
 
         <!-- Tabela com todos os pedidos (Modelo) -->
         <section class="container-fluid w-100 px-5 py-3 text-center">
